@@ -100,16 +100,15 @@
           }
         }
       }
-
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
       //get all the rows by calling the rows()
-      let rows = this.rows();
+      let board = this.rows();
       //loop through the array of rows
-      for (var i = 0; i < rows.length; i++) {
+      for (var i = 0; i < board.length; i++) {
         //for each index (i) call the hasRowConflictAt method (and if the result is true return true)
         if (this.hasRowConflictAt(i)) {
           return true;
@@ -125,6 +124,23 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      //input Col index
+      //output boolean
+
+      //get board;
+      let board = this.rows();
+      //get count;
+      let count = 0;
+      //iterate throw all rows in the board
+      for (let row of board) {
+        if (row[colIndex] === 1) {
+          //if value in index equals to one, increment count
+          count++;
+        }
+        //if count>1 return true
+        if (count > 1) { return true; }
+      }
+
       return false; // fixme
     },
 
