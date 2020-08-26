@@ -88,21 +88,33 @@
       //if index variable equals to one, increment count;
       //if count is greater than one return true;
 
+
       let row = this.get(rowIndex);
       let count = 0;
 
-      row.forEach(item => {
-        if (item === 1) {
+      for (var i = 0; i < row.length; i++) {
+        if (row[i] === 1) {
           count++;
+          if (count > 1) {
+            return true;
+          }
         }
-        if (count > 1) { return true; }
-      });
+      }
 
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      //get all the rows by calling the rows()
+      let rows = this.rows();
+      //loop through the array of rows
+      for (var i = 0; i < rows.length; i++) {
+        //for each index (i) call the hasRowConflictAt method (and if the result is true return true)
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
