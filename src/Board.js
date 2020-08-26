@@ -146,6 +146,20 @@
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      //input nothing;
+      //output boolean;
+
+      //get board
+      let board = this.rows();
+
+      for (let i = 0; i<board.length; i++) {
+        if (this.hasColConflictAt(i)) {
+          //loop over columns of all rows
+          //iterate throw board[i] = row
+          return true;
+        }
+      }
+
       return false; // fixme
     },
 
