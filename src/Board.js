@@ -28,7 +28,6 @@
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
       this.trigger('change');
     },
-
     _getFirstRowColumnIndexForMajorDiagonalOn: function(rowIndex, colIndex) {
       return colIndex - rowIndex;
     },
@@ -62,7 +61,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -79,6 +78,26 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      //input: row index
+      //output: boolean
+      //no out of bound cases..
+
+      //set row by calling get method on input rowIndex
+      //var count = 0;
+      //iterate through row and for each index
+      //if index variable equals to one, increment count;
+      //if count is greater than one return true;
+
+      let row = this.get(rowIndex);
+      let count = 0;
+
+      row.forEach(item => {
+        if (item === 1) {
+          count++;
+        }
+        if (count > 1) { return true; }
+      });
+
       return false; // fixme
     },
 
