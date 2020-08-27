@@ -79,18 +79,24 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
+  if (n === 2 || n === 3) {
+    return new Board({n}).rows();
+  }
+
   let oneSolution = [];
 
   var backTracking = function(board, chessPieces, startingRowIndex) {
+    if (oneSolution.length === 1) {
+      return;
+    }
     let solution = board.rows();
     if (n === 0) {
       oneSolution.push(Array.from(solution));
     } else if (chessPieces === 0) {
-      debugger;
-      console.log('INSIDE BACKTRACKING solution for ' + n + ' queens:', JSON.stringify(solution));
-      console.log(Object.create(board));
-      var newSolution = solution;
-      oneSolution.push(Array.from(newSolution));
+      const newCopy = solution.map(row => {
+        return Array.from(row);
+      });
+      oneSolution.push(newCopy);
     } else {
       for (var colIndex = 0; colIndex < solution[startingRowIndex].length; colIndex++) {
         board.togglePiece(startingRowIndex, colIndex);
@@ -99,7 +105,7 @@ window.findNQueensSolution = function(n) {
         } else {
           let newChessPieces = chessPieces - 1;
           let newStartingRowIndex = startingRowIndex + 1;
-          backTracking(Object.create(board), newChessPieces, newStartingRowIndex);
+          backTracking(board, newChessPieces, newStartingRowIndex);
           board.togglePiece(startingRowIndex, colIndex);
         }
       }
