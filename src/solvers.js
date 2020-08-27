@@ -19,7 +19,6 @@ window.findNRooksSolution = function(n) {
   //chess piece count set at n to begin with
   let board = new Board({n});
   let solution = board.rows();
-  let chessPieces = n;
   // base case - when there are no chess pieces left
   //average
   // loop through the board to access the rows
@@ -30,12 +29,10 @@ window.findNRooksSolution = function(n) {
       //check if the current row[col] is empty (aka 0);
       board.togglePiece(row, col);
       //decrement piece count
-      chessPieces--;
       if (board.hasAnyRooksConflicts()) {
         //check if there are any rook conflicts
         //if yes, remove piece and increment--;
         board.togglePiece(row, col);
-        chessPieces++;
       } else {
         break;
       }
