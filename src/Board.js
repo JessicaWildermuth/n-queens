@@ -152,7 +152,7 @@
       //get board
       let board = this.rows();
 
-      for (let i = 0; i<board.length; i++) {
+      for (let i = 0; i < board.length; i++) {
         if (this.hasColConflictAt(i)) {
           //loop over columns of all rows
           //iterate throw board[i] = row
@@ -170,11 +170,21 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      // i=0, j=0;
+      // count =
+      // i++, j++;
+      // isinBound? ???
+      // [[1,2,3,4]
+      //  [6,7,8,9]
+      // [11,12,13,14]
+    //   [16,17,18,19]
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      // i-0, j-0, = 0
+      // i-1, j-0, = 1;
       return false; // fixme
     },
 
