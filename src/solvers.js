@@ -56,22 +56,34 @@ window.countNRooksSolutions = function(n) {
   //-> [1,0,0,0,0]    // [1,0,0,0,0]
   //-> [0,0,0,0,0]    // [1,0,0,0,0]
 
-  let backtracking = function(board, count, rowIndex) {
+  // let backtracking = function(board, count, rowIndex) {
+  //   if (count === 0) {
+  //     solutionCount++;
+  //   } else {
+  //     for (let colIndex = 0; colIndex < board.rows().length; colIndex++) {
+  //       board.togglePiece(rowIndex, colIndex);
+  //       if (!board.hasColConflictAt(colIndex)) {
+  //         backtracking(board, count - 1, rowIndex + 1);
+  //       }
+  //       board.togglePiece(rowIndex, colIndex);
+  //     }
+  //   }
+  // };
+
+  // backtracking(new ,n, 0);
+  let backtracking = function(count, map) {
     if (count === 0) {
       solutionCount++;
     } else {
-      for (let colIndex = 0; colIndex < board.rows().length; colIndex++) {
-        board.togglePiece(rowIndex, colIndex);
-        if (!board.hasAnyRooksConflicts()) {
-          backtracking(board, count - 1, rowIndex + 1);
+      for (let colIndex = 0; colIndex < n; colIndex++) {
+        if (!map[colIndex]) {
+          backtracking(count - 1, Object.assign({}, map, {[colIndex]: true}));
         }
-        board.togglePiece(rowIndex, colIndex);
       }
     }
   };
 
-  backtracking(new Board({n}), n, 0);
-
+  backtracking(n - 1, {});
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
