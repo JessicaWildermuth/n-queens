@@ -79,15 +79,61 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
+  let oneSolution = [];
 
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  var backTracking = function(board, chessPieces, startingRowIndex) {
+    let solution = board.rows();
+    if (n === 0) {
+      oneSolution.push(Array.from(solution));
+    } else if (chessPieces === 0) {
+      debugger;
+      console.log('INSIDE BACKTRACKING solution for ' + n + ' queens:', JSON.stringify(solution));
+      console.log(Object.create(board));
+      var newSolution = solution;
+      oneSolution.push(Array.from(newSolution));
+    } else {
+      for (var colIndex = 0; colIndex < solution[startingRowIndex].length; colIndex++) {
+        board.togglePiece(startingRowIndex, colIndex);
+        if (board.hasAnyQueensConflicts()) {
+          board.togglePiece(startingRowIndex, colIndex);
+        } else {
+          let newChessPieces = chessPieces - 1;
+          let newStartingRowIndex = startingRowIndex + 1;
+          backTracking(Object.create(board), newChessPieces, newStartingRowIndex);
+          board.togglePiece(startingRowIndex, colIndex);
+        }
+      }
+    }
+  };
+
+  backTracking(new Board({n}), n, 0);
+
+  console.log('Single solution for ' + n + ' queens:', JSON.stringify(oneSolution));
+  return oneSolution[0];
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var solutionCount = 0; //fixme
+
+  var backTracking = function(board, chessPieces, startingRowIndex) {
+    let solution = board.rows();
+    if (chessPieces === 0) {
+      solutionCount++;
+    } else {
+      for (var colIndex = 0; colIndex < solution[startingRowIndex].length; colIndex++) {
+        board.togglePiece(startingRowIndex, colIndex);
+        if (board.hasAnyQueensConflicts()) {
+          board.togglePiece(startingRowIndex, colIndex);
+        } else {
+          backTracking(board, chessPieces - 1, startingRowIndex + 1);
+          board.togglePiece(startingRowIndex, colIndex);
+        }
+      }
+    }
+  };
+
+  backTracking(new Board({n}), n, 0);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
